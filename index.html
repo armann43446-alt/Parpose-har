@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💗</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #54243e;
+  background: linear-gradient(135deg, #ffe0ec, #fff5f8, #f6d8ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.hearts span {
+  position: fixed;
+  bottom: -40px;
+  color: #f06292;
+  font-size: 25px;
+  animation: float 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  padding: 30px 23px;
+  text-align: center;
+  background: rgba(255,255,255,0.94);
+  border: 1px solid #ffc5da;
+  border-radius: 25px;
+  box-shadow: 0 15px 45px #ad497c20;
+  position: relative;
+}
+
+.tag {
+  display: inline-block;
+  background: #ffeaf2;
+  padding: 9px 16px;
+  border-radius: 30px;
+  color: #b8326c;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.rose {
+  font-size: 65px;
+  margin: 20px 0 5px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.12); }
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  color: #8c2856;
+  margin: 12px 0;
+}
+
+p {
+  line-height: 1.8;
+  color: #785568;
+  font-size: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 15px 0;
+  border: 1px solid #f1b9cf;
+  border-radius: 12px;
+  font-size: 16px;
+  outline-color: #e94f87;
+}
+
+.question {
+  background: #fff0f6;
+  padding: 20px 12px;
+  border-radius: 18px;
+  margin-top: 20px;
+}
+
+h2 {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  color: #8c2856;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 14px 19px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.yes {
+  color: white;
+  background: #e94f87;
+}
+
+.time {
+  background: white;
+  color: #a33e6c;
+  border: 1px solid #f1bfd1;
+}
+
+#reply {
+  display: none;
+  background: white;
+  padding: 15px;
+  margin-top: 18px;
+  border-radius: 14px;
+  line-height: 1.7;
+  color: #8c2856;
+}
+
+.small {
+  font-size: 12px;
+  color: #a58396;
+  margin-top: 22px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="card">
+
+  <div class="tag">A LITTLE SECRET 💌</div>
+
+  <div class="rose">🌹</div>
+
+  <h1>Hey, You!</h1>
+
+  <p id="intro">
+    I'm really glad we met on Instagram.
+    Talking to you has become one of the
+    little things that makes my day special. ❤️
+  </p>
+
+  <input
+    id="name"
+    type="text"
+    maxlength="50"
+    placeholder="Enter your special person's name"
+  >
+
+  <p>
+    I know we haven't known each other for very long,
+    and I don't want to rush anything.
+    But honestly, I think I'm starting to like you
+    as more than just a friend. 🥹💗
+  </p>
+
+  <p>
+    I'd love to know you better and see where
+    this connection goes, if you feel the same.
+  </p>
+
+  <div class="question">
+
+    <h2 id="question">
+      Will you give us a chance? 💖
+    </h2>
+
+    <p>
+      Whatever your answer, I'll respect your feelings.
+    </p>
+
+    <div class="buttons">
+      <button class="yes" onclick="answerYes()">
+        Yes, let's try! 💕
+      </button>
+
+      <button class="time" onclick="answerTime()">
+        I need some time 🌸
+      </button>
+    </div>
+
+    <div id="reply"></div>
+
+  </div>
+
+  <div class="small">
+    Made with a little courage and a lot of sincerity ♡
+  </div>
+
+</div>
+
+<script>
+const hearts = document.getElementById("hearts");
+
+for (let i = 0; i < 18; i++) {
+  const heart = document.createElement("span");
+
+  heart.textContent = ["♡", "♥", "✧"][i % 3];
+  heart.style.left = Math.random() * 100 + "%";
+  heart.style.animationDuration =
+    (7 + Math.random() * 8) + "s";
+  heart.style.animationDelay =
+    (-Math.random() * 12) + "s";
+
+  hearts.appendChild(heart);
+}
+
+const nameInput = document.getElementById("name");
+
+nameInput.addEventListener("input", function () {
+  const name = nameInput.value.trim();
+
+  document.getElementById("question").textContent =
+    name
+      ? name + ", will you give us a chance? 💖"
+      : "Will you give us a chance? 💖";
+
+  document.getElementById("intro").textContent =
+    name
+      ? "Hey " + name +
+        ", I'm really glad we met on Instagram. Talking to you has become one of the little things that makes my day special. ❤️"
+      : "I'm really glad we met on Instagram. Talking to you has become one of the little things that makes my day special. ❤️";
+});
+
+function showReply(message) {
+  const name = nameInput.value.trim();
+  const reply = document.getElementById("reply");
+
+  reply.textContent =
+    (name ? name + ", " : "") + message;
+
+  reply.style.display = "block";
+}
+
+function answerYes() {
+  showReply(
+    "Aww, that makes me happy! 💗 Let's take things slowly and get to know each other better. ✨"
+  );
+}
+
+function answerTime() {
+  showReply(
+    "Of course! 🌷 Take all the time you need. I respect your feelings, and there is no pressure."
+  );
+}
+</script>
+
+</body>
+</html>
